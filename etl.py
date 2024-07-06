@@ -53,26 +53,41 @@ def transform_telco_data(df):
     # map yes/no to 1/0
     df = map_yes_no_telco(df)
     
-    # properly typed numerical columns
+    # ensure numerical columns are properly typed
     numerical_columns = ['tenure', 'monthly_charges', 'total_charges']
     for col in numerical_columns:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
     
-    # one hot encode contract
-    df = pd.get_dummies(df, columns=['contract'], drop_first=True)
+    # ordinal encode contract column
+    contract_mapping = {'Month-to-Month': 0, 'One Year': 1, 'Two Year': 2}
+    df['contract'] = df['contract'].map(contract_mapping)
     
-    # binary encode churn label to churn 
+    # label encode payment method
+    payment_mapping = {'Bank Withdrawal': 0, 'Credit Card': 1}
+    df['payment_method'] = df['payment_method'].map(payment_mapping)
+    
+    # Binary encode churn_label to churn column
     df['churn'] = df['churn_label'].apply(lambda x: 1 if x == 'Yes' else 0)
     
     return df.drop(columns=['churn_label'])  # Drop churn_label column
 
 # transform train.csv 
+
 def transform_train_data(df):
-    # Map Yes/No to 1/0
+
+    # map yes/no to 1/0
     df = map_yes_no_train(df)
     
-    # properly typed numerical columns 
+    # Ordinal encode contract
+    contract_mapping = {'Month-to-Month': 0, 'One Year': 1, 'Two Year': 2}
+    df['contract'] = df['contract'].map(contract_mapping)
+    
+    # label encode payment method
+    payment_mapping = {'Bank Withdrawal': 0, 'Credit Card': 1}
+    df['payment_method'] = df['payment_method'].map(payment_mapping)
+    
+    # ensure numerical columns are properly typed
     numerical_columns = ['tenure', 'monthly_charges', 'total_charges']
     for col in numerical_columns:
         if col in df.columns:
@@ -85,7 +100,9 @@ telco_df = transform_telco_data(clean_data(telco_df))
 train_df = transform_train_data(clean_data(train_df))
 
 # ensure same columns for both df after transformation 
+
 telco_df = telco_df.reindex(columns=train_df.columns, fill_value=0)
+
 
 # merge datasets
 combined_df = pd.concat([telco_df, train_df], ignore_index=True)
