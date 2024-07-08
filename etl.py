@@ -1,4 +1,7 @@
 import pandas as pd
+import numpy as np 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
 
 # file paths
 telco_path = 'D:\\Github Repos\\Data-Mining\\telco.csv'
@@ -111,3 +114,77 @@ combined_df = pd.concat([telco_df, train_df], ignore_index=True)
 combined_df.to_csv('D:\\Github Repos\\Data-Mining\\combined_data.csv', index=False)
 
 print("ETL pipeline completed successfully.")
+
+#columns for descriptive statistics and visualization 
+
+columns_to_analyze = [
+    'senior_citizen', 'dependents', 'multiple_lines', 'internet_service',
+    'online_security', 'online_backup', 'device_protection_plan', 'premium_tech_support',
+    'streaming_tv', 'streaming_movies', 'tenure', 'monthly_charges', 'total_charges',
+    'contract', 'payment_method'
+]
+
+#descriptive statistics 
+
+def descriptive_statistics(df): 
+
+    print("Summary Statistics: ")
+    print(df.describe())
+
+    print("\nChurn Distribution: ")
+    print(df['churn'].value_counts(normalize=True))
+
+    #calculate and print mean, median and standard deviation
+    print("\nMean: ")
+    print(df.mean(numeric_only=True))
+
+    print("\nMedian: ")
+    print(df.median(numeric_only=True))
+
+    print("\nStandard Deviation: ")
+    print(df.std(numeric_only=True))
+
+# visualization 
+
+def plot_histograms(df): 
+
+    df.hist(bins=30, figsize=(20,15))
+    plt.show()
+
+def plot_boxplots(df):
+
+    numeric_features = df.select_dtypes(include=[np.number])
+
+    for column in numeric_features.columns:
+        plt.figure(figsize=(10,5))
+        sns.boxplot(x='churn', y=column, data=df)
+        plt.title(f'Box plot of {column} by churn')
+        plt.show()
+
+def plot_bar_charts(df):
+
+    categorical_features = df.select_dtypes(include=[object])
+
+    for column in categorical_features:
+        plt.figure(figsize=(10,5))
+        sns.countplot(x=column, hue='churn', data=df)
+        plt.title(f"Bar chart of {column} by churn")
+        plt.show()
+
+def correlation_analysis(df):
+
+    correlation_matrix = df.corr()
+    plt.figure(figsize=(20,15))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0)
+    plt.title('Correlation Matrix')
+    plt.show()
+
+    print("Correlation with churn: ")
+    print(correlation_matrix['churn'].sort_values(ascending=False))
+
+#perform EDA 
+
+descriptive_statistics(combined_df)
+plot_histograms(combined_df)
+plot_boxplots(combined_df)
+correlation_analysis(combined_df)
