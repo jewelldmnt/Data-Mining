@@ -50,7 +50,7 @@ python3 main.py
 ```
 
 
-### For Linux/Ubuntu System
+### For Linux/macOS System
 1. First clone this git repository to your local device
 ```bash
 git clone https://github.com/jewelldmnt/Data-Mining.git
