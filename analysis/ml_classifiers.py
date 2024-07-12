@@ -52,7 +52,7 @@ def evaluate_model(y_true, y_pred, model_name='Model', classes=None):
 	f1 = f1_score(y_true, y_pred, average='binary', pos_label=1)
 	roc = roc_auc_score(y_true, y_pred)
 
-	print(f"Metrics for {model_name}")
+	print(f"\nMetrics for {model_name}")
 	print(f"Accuracy: {accuracy:.2f}")
 	print(f"Precision: {precision:.2f}")
 	print(f"Recall: {recall:.2f}")
@@ -74,6 +74,11 @@ def evaluate_model(y_true, y_pred, model_name='Model', classes=None):
 def plot_feature_importance(model, feature_names):
 	feature_importances = pd.Series(model.feature_importances_, index=feature_names)
 	feature_importances = feature_importances.sort_values(ascending=False)
+
+	print("\nFeature Importance: ")
+	for feature, imporatance in feature_importances.items():
+		print(f"{feature}: {imporatance:.4f}")
+
 
 	plt.figure(figsize=(12, 8))
 	sns.barplot(x=feature_importances, y=feature_importances.index)
