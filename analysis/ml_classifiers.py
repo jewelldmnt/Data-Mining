@@ -26,8 +26,10 @@ def apply_ml_models(df):
 		'monthly_charge',
 		'total_charges'
 	]
+	# Drop rows with NaN values
+	df = df.dropna()
 	
-	# Ensure selected features are present in df
+ 	# Ensure selected features are present in df
 	df_selected = df[selected_features + ['churn']]
 
 	# Perform one-hot encoding for categorical variables
