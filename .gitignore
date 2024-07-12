@@ -4,6 +4,7 @@ tempCodeRunnerFile.py
 
 # Miscellaneous
 .vscode
+.DS_Store
 
 # Environments
 .env
