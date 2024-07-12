@@ -1,6 +1,6 @@
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
@@ -26,10 +26,8 @@ def apply_ml_models(df):
 		'monthly_charge',
 		'total_charges'
 	]
-	# Drop rows with NaN values
-	df = df.dropna()
 	
- 	# Ensure selected features are present in df
+	# Ensure selected features are present in df
 	df_selected = df[selected_features + ['churn']]
 
 	# Perform one-hot encoding for categorical variables
@@ -62,6 +60,16 @@ def evaluate_model(y_true, y_pred, model_name='Model', classes=None):
 	print(f"ROC AUC: {roc:.2f}")
 
 	print(f"\nConfusion Matrix for {model_name}")
+	cm = confusion_matrix(y_true, y_pred)
+	print(cm)
+ 
+	# Plot confusion matrix heatmap
+	plt.figure(figsize=(8, 6))
+	sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
+	plt.xlabel('Predicted')
+	plt.ylabel('Actual')
+	plt.title(f'Confusion Matrix for {model_name}')
+	plt.show()
 
 def plot_feature_importance(model, feature_names):
 	feature_importances = pd.Series(model.feature_importances_, index=feature_names)
