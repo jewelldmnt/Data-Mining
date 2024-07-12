@@ -8,7 +8,7 @@ telco_path = 'datasets/telco.csv'
 train_path = 'datasets/train.csv'
 
 # Extract, Transform, and Load Data
-etl(telco_path, train_path);
+etl(telco_path, train_path)
 
 combined_df = get_data()
 
