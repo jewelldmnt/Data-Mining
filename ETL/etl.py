@@ -34,9 +34,7 @@ def transform(telco_df, train_df):
 
 	# Clean and transform data
 	telco_df = transform_telco_data(clean_data(telco_df))
-	telco_df = telco_df.dropna()
 	train_df = transform_train_data(clean_data(train_df))
-	train_df = train_df.dropna()
 
 	# Ensure same columns for both dataframes after transformation
 	telco_df = telco_df.reindex(columns=train_df.columns, fill_value=0)
@@ -44,7 +42,6 @@ def transform(telco_df, train_df):
 	# Merge datasets
 	combined_df = pd.concat([telco_df, train_df], ignore_index=True)
 
-	combined_df = combined_df.dropna()
 	# Check for NaN values after handling them
 	check_nan_values(combined_df, "combined_df after handling NaNs")
 
