@@ -36,4 +36,4 @@ descriptive_statistics(combined_df, columns_to_analyze)
 create_visualization(combined_df, columns_to_analyze)
 
 # Apply Machine Learning models and evaluate
-# apply_ml_models(combined_df)
+apply_ml_models(combined_df)
