@@ -41,7 +41,7 @@ def apply_ml_models(df):
 	rf_model.fit(x_train, y_train)
 	rf_preds = rf_model.predict(x_test)
 
-	evaluate_model(y_test, rf_preds, model_name='Random Forest', classes=[0, 1])
+	evaluate_model(y_test, rf_preds, model_name='Random Forest', classes=['not churn', 'churn'])
 	plot_feature_importance(rf_model, x_train.columns)
 
 def evaluate_model(y_true, y_pred, model_name='Model', classes=None):
