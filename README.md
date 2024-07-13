@@ -6,11 +6,13 @@ Customer churn poses a significant challenge for businesses, especially in the h
 
 ## How to use
 
-*Note 1: Make sure you have [Python](https://www.python.org/downloads/) installed. To check, run `python --version` or `python3 --version`*
+*Note 1: Make sure you have [Python](https://www.python.org/downloads/) installed. To check, run `python --version`*
 
-*Note 2: Make sure you have [PIP](https://pypi.org/project/pip/) installed. Normally it already comes with Python. To check, run `pip --version` or `pip3 --version`*
+*Note 2: Make sure you have [PIP](https://pypi.org/project/pip/) installed. Normally it already comes with Python. To check, run `pip --version`*
 
-*Note 3: Make sure you have the package [virtualenv](https://docs.python.org/3/library/venv.html) installed. To install, run `pip install virtualenv` or `pip3 install virtualenv`*
+*Note 3: Make sure you have the package [virtualenv](https://docs.python.org/3/library/venv.html) installed. To install, run `pip install virtualenv`*
+
+*Note 4: If `python` and `pip` are not found in your machine after installation, try `python3` and `pip3`*
 
 ### For Windows System
 
@@ -33,15 +35,11 @@ python -m venv ./venv
 4. Install the required packages
 ```bash
 pip install -r requirements.txt
-# or
-pip3 install -r requirements.txt
 ```
 
 5. Run the program at `main.py`
 ```bash
 python main.py
-# or
-python3 main.py
 ```
 
 6. To deactivate the Virtual Environment
@@ -64,21 +62,21 @@ python -m venv ./venv
 
 3. Activate the Virtual Environment. You will know it works if you see `venv` in the terminal
 ```bash
-source venv/bin/activate
+source ./venv/bin/activate
 ```
 
 4. Install the required packages
 ```bash
+# for Linux
 pip install -r requirements.txt
-# or
-pip3 install -r requirements.txt
+
+# for macOS
+pip install -r requirements_macos.txt
 ```
 
 5. Run the program at `main.py`
 ```bash
 python main.py
-# or
-python3 main.py
 ```
 
 6. To deactivate the Virtual Environment
