@@ -71,7 +71,7 @@ def transform_telco_data(df):
 	df['contract'] = df['contract'].map(contract_mapping)
 
 	# Label encode payment method
-	payment_mapping = {'Bank Withdrawal': 0, 'Credit Card': 1}
+	payment_mapping = {'Bank Withdrawal': 0, 'Credit Card': 1, 'Mailed Check': 2}
 	df['payment_method'] = df['payment_method'].map(payment_mapping)
 
 	# Binary encode churn_label to churn column
@@ -94,7 +94,7 @@ def transform_train_data(df):
 	df['contract'] = df['contract'].map(contract_mapping)
 
 	# Label encode payment method
-	payment_mapping = {'Bank Withdrawal': 0, 'Credit Card': 1}
+	payment_mapping = {'Bank Withdrawal': 0, 'Credit Card': 1, 'Mailed Check': 2}
 	df['payment_method'] = df['payment_method'].map(payment_mapping)
 
 	# Ensure numerical columns are properly typed

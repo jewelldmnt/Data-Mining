@@ -56,7 +56,6 @@ def create_visualization(df,columns):
 		plt.title(f'Total Count: {df_filtered[feature].count()}', x=0.5)
 		plt.savefig(f'graphs/{count}_pie_{feature}_distribution.png')
 
-
 		# If you want to show the plot
 		# plt.show()
 		
@@ -64,7 +63,7 @@ def create_visualization(df,columns):
 
 		# clean figure
 		plt.clf()
-
+		plt.close()
 
 def autopct_format(values):
 	def my_format(pct):
