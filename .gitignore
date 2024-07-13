@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__
+tempCodeRunnerFile.py
+
+# Miscellaneous
+.vscode
+.DS_Store
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Databases
+*.sqlite3
+*.db*
