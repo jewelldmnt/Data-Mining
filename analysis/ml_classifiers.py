@@ -69,6 +69,7 @@ def evaluate_model(y_true, y_pred, model_name='Model', classes=None):
 	plt.xlabel('Predicted')
 	plt.ylabel('Actual')
 	plt.title(f'Confusion Matrix for {model_name}')
+	plt.savefig('graphs/16_confusion_matrix.png', bbox_inches='tight')
 	plt.show()
 
 def plot_feature_importance(model, feature_names):
@@ -82,7 +83,11 @@ def plot_feature_importance(model, feature_names):
 
 	plt.figure(figsize=(12, 8))
 	sns.barplot(x=feature_importances, y=feature_importances.index)
+	# show values per feature
+	for i in range(len(feature_importances)):
+		plt.text(feature_importances[i], i, f"{feature_importances[i]:.4f}", ha='right', va='center')
 	plt.xlabel('Feature Importance Score')
 	plt.ylabel('Features')
 	plt.title('Random Forest Feature Importance')
+	plt.savefig('graphs/17_feature_importance.png', bbox_inches='tight')
 	plt.show()
