@@ -18,13 +18,12 @@ def create_visualization(df,columns):
 		plt.ylabel('Frequency')
 
 		# save figure
-		plt.savefig(f'graphs/{count}_{feature}_distribution.png')
+		plt.savefig(f'graphs/{count}_{feature}_distribution.png', bbox_inches='tight')
 		# plt.show()
 		count += 1
 
 		# clean figure
 		plt.clf()
-
 
 	categorical_features = [
 		'senior_citizen',
@@ -52,9 +51,47 @@ def create_visualization(df,columns):
 
 		# Pie Chart
 		plt.pie(df_filtered[feature].value_counts(), labels=df_filtered[feature].value_counts().index, autopct=autopct_format(df_filtered[feature].value_counts()))
-		plt.suptitle(f'{feature.capitalize()} Distribution', x=0.5)
+
+		# Clean Text: change underscores to spaces and capitalize first letter of each word
+		cleaned_feature = feature.replace('_', ' ').title()
+
+		# Add legend
+		if feature in [
+			'multiple_lines',
+			'internet_service',
+			'online_security',
+			'online_backup',
+			'device_protection_plan',
+			'premium_tech_support',
+		]:
+			plt.legend([f'Did not avail {cleaned_feature}', f'{cleaned_feature}'],
+				title="Legend", loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
+
+
+		if feature in ['dependents']:
+			plt.legend([f'No {cleaned_feature}', f'{cleaned_feature}'],
+				title="Legend", loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
+
+
+		if feature in ['senior_citizen', 'streaming_tv', 'streaming_movies']:
+			plt.legend([f'Not {cleaned_feature}', f'{cleaned_feature}'],
+				title="Legend", loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
+
+
+		if feature in ['contract']:
+			plt.legend(['Month-to-Month', 'One Year', 'Two Year'],
+				title="Legend", loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
+
+		
+		if feature in ['payment_method']:
+			plt.legend(['Bank Withdrawal', 'Credit Card', 'Mailed Check'], 
+				title="Legend", loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=2)
+
+
+		plt.suptitle(f'{cleaned_feature} Distribution', x=0.5)
 		plt.title(f'Total Count: {df_filtered[feature].count()}', x=0.5)
-		plt.savefig(f'graphs/{count}_pie_{feature}_distribution.png')
+		plt.savefig(
+			f'graphs/{count}_pie_{feature}_distribution.png', bbox_inches='tight')
 
 		# If you want to show the plot
 		# plt.show()
@@ -64,6 +101,7 @@ def create_visualization(df,columns):
 		# clean figure
 		plt.clf()
 		plt.close()
+
 
 def autopct_format(values):
 	def my_format(pct):
